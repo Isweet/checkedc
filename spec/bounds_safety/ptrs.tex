@@ -1,0 +1,108 @@
+% !Tex root = checkedc.tex
+
+\chapter{The \ptrT Type}
+\label{chapter:ptrs}
+
+The simplest new pointer type introduced by Checked C
+is the \ptrT type. This is a pointer type which points
+to a value of type \var{T}. This type precludes pointer
+arithmetic, and must be non-null when dereferenced.
+
+We introduce the following new keyword for declaring \ptrT
+types.
+
+\begin{lstlisting}
+  _Ptr
+\end{lstlisting}
+
+An all-lowercase version of this declaration, \lstinline{ptr}, is available
+after importing the \keyword{stdchecked.h} header file.
+
+Here are  examples of declarations using \ptrT pointer types. These declare variables that
+are both pointers to integers:
+
+\begin{lstlisting}
+int *p;
+ptr<int> q;
+\end{lstlisting}
+
+The new checked pointer types can have \keyword{const} and \keyword{volatile}
+modifiers, just like unchecked pointer types. They can be applied to the type
+of the object to which the pointers points or to the pointer itself. Here are examples
+of pointers to constant integers:
+
+\begin{lstlisting}
+const int *p;
+ptr<const int> q;
+\end{lstlisting}
+
+Here are examples of constant pointers to modifiable integers:
+
+\begin{lstlisting}
+int x;
+int *const p = &x;
+const ptr<int> q = &x;
+\end{lstlisting}
+
+The checked pointer types follow the same rules that apply to modifiers for
+unchecked pointer types.  For example, a variable that is a pointer to a
+\keyword{const} value can be assigned a pointer to a non-const value.
+The reverse is not allowed.
+
+Lastly, let's look at an example of a function pointer.
+
+\begin{lstlisting}
+typedef ptr<int (int x, int y)> callback_ptr;      // legal
+\end{lstlisting}
+
+\section{Operations}
+
+The following are some rules involving operations on \ptrT:
+
+\begin{itemize}
+\item
+  Indirection: the \code{*} operator can be applied to a value of type
+  \ptrT. It produces a value of type \var{T}.
+\item
+  Array reference: the \code{[]} operator cannot be applied to a
+  value of type \ptrT. According to the C standard \ins{TODO: cite},
+  \var{e1}\lstinline|[|\var{e2}\lstinline|]| is equivalent to
+  \lstinline|*(|\var{e1} \lstinline|+| \var{e2}\lstinline|)|. Since
+  pointer arithmetic is not allowed on \ptrT, neither is array reference.
+\item
+  Assignment: two pointers of the same type can be assigned.
+\item
+  Adding or subtracting a \ptrT and an integer. This is not allowed. See above.
+\item
+  Pointers to objects of the same type can be compared for equality or
+  inequality. The pointers do not have to be the same kind of pointer.
+  To support reasoning about program behavior, the result of comparing
+  pointers to different objects must be defined.  Checked pointers can also
+  be compared for equality or inequality with \code{0} and \void\ pointers,
+  just like unchecked pointers.
+\item
+  Pointers to objects of the same type can be compared relationally. Relational comparisons are the
+  \lstinline|<|, \lstinline|<=|, \lstinline|>|, \lstinline|>=| operators. The pointers do not have
+  to be
+  the same kind of pointer. To support bounds checking and reasoning about program behavior, the
+  result of comparing pointers to different objects must be defined.
+  Section~\ref{section:changes-to-undefined-behavior} describes this requirement in detail.
+\item
+  Pointers to objects of the same type can be subtracted. The pointers do not have to be
+  the same kind of
+  pointer. The result of subtracting pointers to different objects of
+  the same type must be defined. Section~\ref{section:changes-to-undefined-behavior}
+  describes this requirement in detail. \ins{TODO: does this apply to ptrs too? What does it even mean to subtract two pointers?}
+\end{itemize}
+
+\section{Initialization}
+
+Variables that have \ptrT type and that may be used to access memory
+must be initialized when they are declared. Static variables and their members or elements are zero-initialized at program
+start-up time, if no initializer is declared. Programmers do not need to do anything to
+initialize them. Zero is a valid value for a checked pointer.
+
+Here are examples of variable declarations with initializers:
+\begin{lstlisting}
+ptr<int> p = 0;                   // initializer required.
+\end{lstlisting}

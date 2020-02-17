@@ -1,6 +1,8 @@
 PAPERNAME=checkedc
 FILES = abstract.tex \
         checking-variable-bounds.tex \
+	ptrs.tex \
+	array-ptrs.tex \
         core-extensions.tex \
         design-alternatives.tex \
         fragments.tex \
