@@ -39,9 +39,9 @@
 % Use this command to omit text temporarily for the document.
 \newcommand{\omitted}[1]{}
 
-% Use this command to provide a feedback or comment on the 
+% Use this command to provide a feedback or comment on the
 % text.  The first argument should be the name of the person
-% providing feedback and the second argument should be the 
+% providing feedback and the second argument should be the
 % text of the feedback.   For example:
 %  \feedback{David Tarditi}{Here are some additional examples.}
 
@@ -64,7 +64,7 @@
                count,
                dynamic_bounds_cast, _Dynamic_bounds_cast,
                dynamic_check, _Dynamic_check,
-               for_any, _For_any, 
+               for_any, _For_any,
 	    itype_for_any, _Itype_for_any,
                nt_array_ptr, _Nt_array_ptr,
                nt_checked, _Nt_checked,
@@ -91,6 +91,7 @@
 }
 \lstset{language=C,style=customc}
 
+\newcommand{\ins}[1]{\textcolor{red}{Ian: #1}}
 
 %
 % meta variables are italicized.  Use the macro name var
@@ -191,7 +192,7 @@
 \vspace{0.25in}
 {Checked C Technical Report Number 1 \par}
 \vspace{0.125in}
-{Author: David Tarditi, Microsoft\par} 
+{Author: David Tarditi, Microsoft\par}
 \vspace{0.5in}
 {\it Summary \par}
 \input{abstract}
@@ -208,7 +209,7 @@ is available at {\color{blue} \url{http://www.openwebfoundation.org/legal/the-ow
 
 This Specification is part of an on-going research project.
 Contributions to this specification
-are made under the Open Web Foundation Contributor License 1.0. 
+are made under the Open Web Foundation Contributor License 1.0.
 This license is available at {\color{blue} \url{http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owf-contributor-license-agreement-1-0---copyright-and-patent}}.
 
 \newpage
@@ -235,10 +236,6 @@ This license is available at {\color{blue} \url{http://www.openwebfoundation.org
 \include{pointers-to-pointers}
 \include{simple-invariants}
 \include{related-work}
-%\chapter{Experience applying to this to OpenSSL}
-%\label{chapter:eval}
-\include{open-issues}
-\include{design-alternatives}
 
 \nocite{Jones2009}
 \nocite{Jim2002}
